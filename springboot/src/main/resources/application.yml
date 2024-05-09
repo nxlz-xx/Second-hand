@@ -1,0 +1,47 @@
+ip: localhost
+server:
+  port: 9020
+
+spring:
+  datasource: # 数据库配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root   #你本地的数据库用户名
+    password: 123456 #你本地的数据库密码
+    url: jdbc:mysql://${ip}:3306/xm_secondhand_manager?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+  redis: # redis配置
+    host: ${ip}
+    port: 6379
+    database: 0
+  servlet: # 文件上传配置
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+# 配置mybatis实体和xml映射
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+# 分页
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+# AliOss配置
+alioss:
+  endpoint: oss-cn-beijing.aliyuncs.com
+  access-key-id: LTAI5tJCnPVFqdSD7djKf4xe
+  access-key-secret: mlfXaCQx1oTJ3GKpUjxe7knkkimDAu
+  bucket-name: xm-secondhand-manager
+
+# 支付宝沙箱支付
+alipay:
+  app-id: 9021000135646399
+  app-private-key: MIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQCFZux0JbbFt+z3YyTkHDkv7WQX0M3r6ZZ0egVtuy/WehzOLd/6bu3+0SUsPvpcH9dM3xquoaMN+F7NTI9zCO20yqtBMyTKB58BqddIjoI03N6tCYtOnH8gk32DhLFUjM5XIEL2DmYHG+I7VRUd6klsljC9olPXymkXTfVUNTp0KgSyvvWLdxTfp+7dLFfyNgfxyBKeBN7oE3e8jP5/UGwGjq62W7OucQox8AQSshCpvWxr+k61P8EHRpJ9xKok1iVAbUR8Xyd6eyObZVV85lZ2sDms5KkRzlTcFBLT4sWCP7GZxcLf8dr3jl/eKm3Hjf2vkhyir2JNxdao1fzuX5XdAgMBAAECggEBAILmf9dounRBCnGmA6kiWKtC0hjcd3OqfkxE/9aw+zwGDwXx1fozp62HJGbKVXjYdbekpNX/HbSzprLlEU3b0QS6allMCimEWO6U7f7wd6vPn2FEIEI/Ji+dCmhnaGqC0GaF7a7saglHvzJhRptYLjwzFBjAlG0G3SBVCwpaQMWCmi99FYKIQiaEK8qZdzn8B9+LsaILu3ZQy+lKrMHhTs+PQwNleF9ZCtCMcrKV39rSEAAB/qqf8VRnG66VVqFNNJi56RuZ6+Co7yAHSoaeBGeywLCeTxFUFg4E2AH+Fn7uJokZhUclcu5/u/SwtN5OddRrH5vOFPt7hNBNwqvNmoECgYEAxUGYx/6SpqXli7Ttvkzd+sL+bGXNF1ycAaAjkSClDgWvskriG2Ol0syZ36LJ4quELPFaHIl5KMVmM8zsLMF8vL8lSaZTdOcBdQZoSOxaBu9qGFEPJELuwCZFdJwtvcTo8rlvC0C1oq0TSe6XM4OLaIlDciQ0vcXYBcQ49UKAL6kCgYEArSE3e497FC8QxNYG9Oem3WHrWrhQ4naK1MyHqFTyq1b58zCKaTAFYDePS1d+gKHwqHQa7DOFIkuu+aqNR2W49PEBZnCyg0oQu11XtOIKrrIQOmif38uxKq8blWKANeGoULCJXCvkNAH8rRxRL+teC8BYnjSalPOh9LSUCY9eZRUCgYEAoC8YxrAwnyvxMHaI6hS53r0ipxw0ZFhMR/WnbF86KhzsBLlSzDMrofeMrVMg5vWprGWCa9InlbhXupEa6W1mwk/nE9wBwdkmEcZWQYHNyfv6CC0rQqMoBtoNZRi+/HA/S3zSdCzkU2qBU3RxTN/yAb4WC0bjnYhgWK50IpcSSaECgYEAnl7aUA8KOYZsQoK+Tl1xyOV/07bzVpW1nb+TAKrkaVPgxVNL6bjh0ghA7lyU/bolWRMMZbEjQiIVZ5FaN0uYC4hDDaBdy7d+4sYaKv7zYqbELYnzZVcBM9iG1PoL6j4IJ/e1TzlfQSvoJbrXkYwutXU4G1Bnb4YGSsC9ApnBcZkCgYEAxRIYYDvakTYccKXSGDbblH8INQ4IBOgwYTpwynBGMzLZIdBb+XXkbnxNF+B+IjB7ZPUfu1R42pMQTpeJtz01aDaj0XHMjHSwuOAAEqYjQVSpeKPQvbjio51F2hTu5VuubxIfWVuM5beTwYy3j/qBGVtDv63YPSChjtxEvCLZpHI=
+  alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgS0CBckXhdC4a8JvEQNZiqaEtV5Pv/EXJ+/TghKqbTwZ6KTnpjamUiStckRGA7aiNEPCLO3RU4EaDpJblXCoFJiZTRxbuemy56GvRI8ypr/ratSoYVzth6t36mEVtZR4hxq5NOHiAxtKjqc6i/8b5Lm1RGvg96SkNYqyr6bNFVXiDeVg/k7tjyasDYVDcS3epR6W/MLL2ldoDqjE30YOsiSNLyA1S4vSTSENEMa/59CJjNQpcg5bXUfi14akvKgOxnTNIe+lTjzhpTiciXTNjPxly7iA44lq81JFz+pBpykZOEmDFZN5rHWXYrO0COg5P46Fs9gnGooz+Ao7O4F2JQIDAQAB
+  notify-url: http://${ip}:9020/alipay/notify
