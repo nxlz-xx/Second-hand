@@ -33,6 +33,10 @@ pagehelper:
   params: count=countSql
 
 # AliOss配置
-
+alioss:
+  endpoint: oss-cn-beijing.aliyuncs.com
+  access-key-id:
+  access-key-secret:
+  bucket-name: xm-secondhand-manager
 
 # 支付宝沙箱支付
