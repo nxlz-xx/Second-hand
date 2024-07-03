@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.common.Constants;
+import com.example.common.context.BaseContext;
 import com.example.common.enums.RoleEnum;
 import com.example.entity.Account;
 import com.example.service.AdminService;
@@ -63,6 +64,10 @@ public class TokenUtils {
                 String userRole = JWT.decode(token).getAudience().get(0);
                 String userId = userRole.split("-")[0];  // 获取用户id
                 String role = userRole.split("-")[1];    // 获取角色
+
+                // 将用户id放入ThreadLocal中
+                BaseContext.setCurrentUserId(Integer.valueOf(userId));
+
                 if (RoleEnum.ADMIN.name().equals(role)) {
                     return staticAdminService.selectById(Integer.valueOf(userId));
                 }

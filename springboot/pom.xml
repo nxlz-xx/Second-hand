@@ -77,6 +77,13 @@
             <version>4.3.0</version>
         </dependency>
 
+        <!--阿里数据库连接池druid-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.20</version>
+        </dependency>
+
         <!--支持配置属性类，yml文件中可以提示配置项-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -125,6 +132,12 @@
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
             <version>1.6.2</version>
+        </dependency>
+
+        <!--RabbitMQ中amqp-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
     </dependencies>

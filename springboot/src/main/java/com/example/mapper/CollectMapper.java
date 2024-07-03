@@ -18,8 +18,8 @@ public interface CollectMapper {
     @Select("select * from collect where goods_id = #{goodsId} and user_id = #{userId}")
     Collect selectByGoodsIdAndUserId(Integer goodsId, Integer userId);
 
-    @Select("select count(*) from collect where goods_id = #{goodsId} and user_id = #{userId}")
-    int selectLikesCount(Integer goodsId, Integer userId);
+    @Select("select count(*) from collect where goods_id = #{goodsId}")
+    int selectCollectCount(Integer goodsId);
 
     List<Collect> selectAll(Collect collect);
 }

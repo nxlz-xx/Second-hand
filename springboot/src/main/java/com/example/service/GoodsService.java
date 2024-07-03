@@ -12,6 +12,7 @@ import com.example.mapper.CollectMapper;
 import com.example.mapper.GoodsMapper;
 import com.example.mapper.LikesMapper;
 import com.example.mapper.OrdersMapper;
+import com.example.threadTask.QueryGoodsTask;
 import com.example.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -23,6 +24,8 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 二手商品业务处理
@@ -38,6 +41,10 @@ public class GoodsService {
     private CollectMapper collectMapper;
     @Autowired
     private OrdersMapper ordersMapper;
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
+    @Autowired
+    private QueryGoodsTask queryGoodsTask;
 
     /**
      * 新增
@@ -87,28 +94,10 @@ public class GoodsService {
      * 根据ID查询
      */
     public Goods selectById(Integer id) {
-        Goods goods = goodsMapper.selectById(id);
-        Account currentUser = TokenUtils.getCurrentUser();
-        Likes likes = likesMapper.selectByGoodsIdAndUserId(id, currentUser.getId());
-        if (ObjectUtil.isNotEmpty(likes)){
-            goods.setUserLikes(true);
-        }
-        int likesCount = likesMapper.selectLikesCount(id, currentUser.getId());
-        goods.setLikesCount(likesCount);
-
-        Collect collect = collectMapper.selectByGoodsIdAndUserId(id, currentUser.getId());
-        if (ObjectUtil.isNotEmpty(collect)){
-            goods.setUserCollect(true);
-        }
-        int collectCount = collectMapper.selectLikesCount(id, currentUser.getId());
-        goods.setCollectCount(collectCount);
-
-        goodsMapper.updateById(goods);
-
-        return goods;
-
+        // 线程池异步查询商品信息
+        return queryGoodsTask.queryGoods(id);
     }
-    
+
     /**
      * 查询所有
      */

@@ -16,6 +16,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import javax.annotation.Resource;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -32,6 +33,8 @@ public class OrdersService {
     private GoodsMapper goodsMapper;
     @Autowired
     private AddressMapper addressMapper;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * 新增订单
@@ -62,6 +65,14 @@ public class OrdersService {
 
         // 插入构建好的订单到数据库
         ordersMapper.insert(order);
+
+        //发送延迟消息到延迟交换机，订单超时自动取消订单
+        /*rabbitTemplate.convertAndSend("orderDelay.direct","orderDelay",
+                order.getId(), message -> {
+                    // 设置延迟时间5分钟
+                    message.getMessageProperties().setHeader("x-delay", 1000*60*5);
+                    return message;
+                });*/
     }
 
 

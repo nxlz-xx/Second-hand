@@ -37,4 +37,5 @@ public interface GoodsMapper {
      * 前台查询所有
      */
     List<Goods> selectFrontAll(Goods goods);
+
 }

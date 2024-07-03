@@ -4,6 +4,7 @@ server:
 
 spring:
   datasource: # 数据库配置
+    type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root   #你本地的数据库用户名
     password: 123456 #你本地的数据库密码
@@ -12,6 +13,12 @@ spring:
     host: ${ip}
     port: 6379
     database: 0
+# rabbitmq: # RabbitMQ配置
+#   host: 192.168.88.130 # RabbitMQ服务器地址
+#   port: 5672 # RabbitMQ服务器端口
+#   username: root # RabbitMQ用户名
+#   password: 123456 # RabbitMQ密码
+#   virtual-host: /second # RabbitMQ虚拟主机
   servlet: # 文件上传配置
     multipart:
       max-file-size: 100MB
@@ -32,5 +39,9 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
 
+# AliOss配置
+
+
+# 支付宝沙箱支付
 
 

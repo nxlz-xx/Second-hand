@@ -125,4 +125,5 @@
         <if test="sort == '最新'"> order by goods.id desc</if>
         <if test="sort == '最热'"> order by goods.read_count desc</if>
     </select>
+
 </mapper>

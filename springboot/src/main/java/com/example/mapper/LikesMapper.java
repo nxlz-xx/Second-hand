@@ -16,6 +16,6 @@ public interface LikesMapper {
     @Select("select * from likes where goods_id = #{goodsId} and user_id = #{userId}")
     Likes selectByGoodsIdAndUserId(Integer goodsId, Integer userId);
 
-    @Select("select count(*) from likes where goods_id = #{goodsId} and user_id = #{userId}")
-    int selectLikesCount(Integer goodsId, Integer userId);
+    @Select("select count(*) from likes where goods_id = #{goodsId}")
+    int selectLikesCount(Integer goodsId);
 }
